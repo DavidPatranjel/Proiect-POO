@@ -98,7 +98,13 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install clang-tidy libc++-12-dev libc++abi-12-dev
-
+          
+      - name: Install ninja libc++ (Linux Clang 11)
+        if: runner.os == 'Linux' && matrix.cxx == 'clang++-12'
+        run: |
+          sudo apt-get update
+          sudo apt-get install ninja-build libc++-11-dev libc++abi-11-dev
+          
       - name: Install ninja libc++ (Linux Clang 11)
         if: runner.os == 'Linux' && matrix.cxx == 'clang++-11'
         run: |
