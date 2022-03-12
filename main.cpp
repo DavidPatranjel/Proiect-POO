@@ -166,22 +166,28 @@ public:
     ///Anulare subsciption
     void cancelSubscription(const std::string& provider_name_, std::vector<Provider>& pr){
         int k = 0;
+        int ok = 0;
         for(const Subscription& i:s){
             if(i.getProvider().getCredentials().getUsername() == provider_name_){
                 s.erase(s.begin()+k);
                 std::cout<<"Canceled subscription for: "<<provider_name_<<"\n";
-                k = 0;
-                for(const Provider& j:pr){
-                    if(j.getCredentials().getUsername() == provider_name_){
-                        pr[k].delSubscribers(c.getUsername());
-                        return;
-                    }
-                    k++;
-                }
+                ok = 1;
+                break;
             }
             k++;
         }
-        std::cout<<"Error: Subscription not found!\n";
+        if(ok == 0){
+            std::cout<<"Error: Subscription not found!\n";
+            return;
+        }
+        k = 0;
+        for(const Provider& j:pr){
+            if(j.getCredentials().getUsername() == provider_name_){
+                pr[k].delSubscribers(c.getUsername());
+                return;
+            }
+            k++;
+        }
     }
 };
 
@@ -202,7 +208,7 @@ int main(){
     std::cout<<std::endl<<"USERS TEST"<<std::endl<<std::endl;
     Credentials c3{"ionpopescu22", "parola123"},c4{"danvoiculescu33","password111"};
     User u1{c3, "Ion", "Popescu", "Garanti", 2000};
-    User u2{c4, "Dan", "Voiculescu", "Revolut", 3655.23};
+    User u2{c4, "Dan", "Voiculescu", "Revolut", 3655.23f};
     users.push_back(u1);
     users.push_back(u2);
     for(const User& i:users){
@@ -230,6 +236,7 @@ int main(){
     std::cout<<users[0]<<users[1]<<providers[1];
     ///Test cancel subs
     std::cout<<std::endl<<"CANCEL TEST"<<std::endl<<std::endl;
+    users[1].cancelSubscription("dave", providers);
     users[0].cancelSubscription("ana123", providers);
     std::cout<<users[0]<<providers[1];
     return 0;
