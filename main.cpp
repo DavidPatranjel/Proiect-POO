@@ -94,7 +94,7 @@ class Subscription{
     int price;
 public:
     ///Constructor initializare - subsscription
-    Subscription(const Provider& p_, const std::string& start_date_ = "", const std::string& end_date_ = "", const std::string& type_ = "", int price_ = 0) :
+    explicit Subscription(const Provider& p_, const std::string& start_date_ = "", const std::string& end_date_ = "", const std::string& type_ = "", int price_ = 0) :
             p{p_}, start_date{start_date_}, end_date{end_date_}, type{type_}, price{price_}{
         std::cout << "Constr de initializare Subscription\n";
     }
