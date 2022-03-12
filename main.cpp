@@ -7,7 +7,7 @@ class Credentials{
 public:
     ///Constructor de initializare - credentiale
     Credentials(const std::string& username_, const std::string& password_) :
-            username{username_}, password{password_}{
+        username{username_}, password{password_}{
         std::cout << "Constr de initializare Credentiale\n";
     }
     ///Operatorul << - credentiale
@@ -67,8 +67,6 @@ public:
     ///Apel la schimbare de parola
     void callChangePasswordProvider(const std::string& new_password_/*, std::vector<User>& us*/){
         c.changePassword(new_password_);
-        /*for(const User& i:us)
-        updatePasswordProvider(const std::string& c.getUsername());*/
     }
 
     ///Adaugare subscriber
@@ -106,7 +104,6 @@ public:
         os << "Start date: " << sb.start_date << ", end date: " << sb.end_date << ", type subscription: " << sb.type << ", price: " << sb.price <<"\n";
         return os;
     }
-
     ///Operator= de copiere - subscription
     Subscription& operator=(const Subscription& other) {
         p = other.p;
@@ -117,7 +114,6 @@ public:
         std::cout << "operator= copiere subcr\n";
         return *this;
     }
-
     ///Constructor de copiere - subscription
     Subscription(const Subscription& other) : p{other.p}, start_date{other.start_date}, end_date{other.end_date}, type{other.type}, price{other.price}{
         std::cout << "Constr de copiere subcr\n";
@@ -126,10 +122,8 @@ public:
     ~Subscription(){
         std::cout << "Destr Subscription\n";
     }
-
     ///Getter
     const Provider &getProvider() const {return p;}
-
 };
 
 class User{
@@ -138,11 +132,11 @@ class User{
     std::string first_name;
     std::string last_name;
     std::string bank_account;
-    int bank_balance;
+    float bank_balance;
 public:
     ///Constructor de initializare - users
-    User(const std::string& username,const std::string& password, const std::string& first_name_, const std::string& last_name_, const std::string& bank_account_, int bank_balance_) :
-            c{username, password}, first_name{first_name_},  last_name{last_name_}, bank_account{bank_account_}, bank_balance{bank_balance_} {
+    User(const Credentials& c_, const std::string& first_name_, const std::string& last_name_, const std::string& bank_account_, float bank_balance_) :
+        c{c_}, first_name{first_name_},  last_name{last_name_}, bank_account{bank_account_}, bank_balance{bank_balance_} {
         std::cout << "Constr de init User\n";
     }
     ///Operatorul << - user
@@ -184,7 +178,6 @@ public:
                     }
                     k++;
                 }
-
             }
             k++;
         }
@@ -207,8 +200,11 @@ int main(){
     }
     ///Test user
     std::cout<<std::endl<<"USERS TEST"<<std::endl<<std::endl;
-    User u1{"ionpopescu22","parola123", "Ion", "Popescu", "Garanti", 2000};
+    Credentials c3{"ionpopescu22", "parola123"},c4{"danvoiculescu33","password111"};
+    User u1{c3, "Ion", "Popescu", "Garanti", 2000};
+    User u2{c4, "Dan", "Voiculescu", "Revolut", 3655.23};
     users.push_back(u1);
+    users.push_back(u2);
     for(const User& i:users){
         std::cout<<i;
     }
@@ -230,10 +226,11 @@ int main(){
     std::cout<<std::endl<<"NEW SUBS"<<std::endl<<std::endl;
     users[0].addSubscription(providers[0], "01.01.2005", "01.01.2006", "anual", 50);
     users[0].addSubscription(providers[1], "01.01.2006", "01.02.2008", "lunar", 20);
-    std::cout<<users[0]<<providers[0];
+    users[1].addSubscription(providers[1], "03.05.2011", "03.06.2011", "lunar", 25);
+    std::cout<<users[0]<<users[1]<<providers[1];
     ///Test cancel subs
     std::cout<<std::endl<<"CANCEL TEST"<<std::endl<<std::endl;
-    users[0].cancelSubscription("dave24", providers);
-    std::cout<<users[0]<<providers[0];
+    users[0].cancelSubscription("ana123", providers);
+    std::cout<<users[0]<<providers[1];
     return 0;
 }
