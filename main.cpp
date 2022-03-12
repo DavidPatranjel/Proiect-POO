@@ -33,13 +33,17 @@ class Provider{
     std::string last_name;
     std::string description;
     std::string bank_account;
-    int bank_balance;
+    float bank_balance;
     std::vector<std::string> content;
     std::vector<std::string> subscribers;
 public:
     ///Constructor de initializare - provider
-    Provider(const std::string& username_,const std::string& password_, const std::string& first_name_, const std::string& last_name_, const std::string& description_, const std::string& bank_account_, int bank_balance_):
+    /*Provider(const std::string& username_,const std::string& password_, const std::string& first_name_, const std::string& last_name_, const std::string& description_, const std::string& bank_account_, float bank_balance_):
             c{username_, password_}, first_name{first_name_}, last_name{last_name_}, description{description_}, bank_account{bank_account_}, bank_balance{bank_balance_}{
+        std::cout << "Constr init provider\n";
+    }*/
+    Provider(const Credentials& c_, const std::string& first_name_, const std::string& last_name_, const std::string& description_, const std::string& bank_account_, float bank_balance_):
+            c{c_}, first_name{first_name_}, last_name{last_name_}, description{description_}, bank_account{bank_account_}, bank_balance{bank_balance_}{
         std::cout << "Constr init provider\n";
     }
     ///Operatorul << - provider
@@ -193,8 +197,9 @@ int main(){
     std::vector<Provider> providers;
     ///Test provider + credentials
     std::cout<<std::endl<<"PROVIDERS TEST"<<std::endl<<std::endl;
-    Provider p1{"dave24", "parola", "David", "Patranjel", "the best yt videos", "IBAN1324", 2040};
-    Provider p2{"ana123", "parolaparola", "Ana", "Ionescu", "the worst yt videos", "IBAN5555", 1220};
+    Credentials c1{"dave", "parola"},c2{"ana123","parolaparola"};
+    Provider p1{c1, "David", "Patranjel", "the best yt videos", "IBAN1324", 2040};
+    Provider p2{c2, "Ana", "Ionescu", "the worst yt videos", "IBAN5555", 1220};
     providers.push_back(p1);
     providers.push_back(p2);
     for(const Provider& i:providers){
@@ -229,6 +234,6 @@ int main(){
     ///Test cancel subs
     std::cout<<std::endl<<"CANCEL TEST"<<std::endl<<std::endl;
     users[0].cancelSubscription("dave24", providers);
-    std::cout<<users[0];
+    std::cout<<users[0]<<providers[0];
     return 0;
 }
