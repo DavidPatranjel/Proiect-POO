@@ -27,9 +27,6 @@ public:
     ///Clonare
     [[nodiscard]] Account *clone() const override;
 
-    ///Operatorul =
-    ///User& operator= (const User& oth);
-
     ///Getter phonenumber
     [[nodiscard]] const std::string &getPhoneNumber() const;
 

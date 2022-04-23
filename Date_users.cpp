@@ -9,7 +9,7 @@ void swap(Date_users &c1, Date_users &c2) {
 ///Constructor de copiere
 Date_users::Date_users(const Date_users &other) {
     for(const auto& a:other.users){
-        users.push_back(static_cast<const std::shared_ptr<Account>>(a->clone()));
+        users.push_back(a->clone());
     }
 }
 

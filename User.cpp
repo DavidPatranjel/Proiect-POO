@@ -37,13 +37,6 @@ Account *User::clone()const {
     std::cout<<"CLONAUSER\n";
     return new User (*this);
 }
-/*
-///Operatorul =
-User &User::operator=(const User &oth) {
-    Account::operator=(oth);
-    std::cout<<"Op=  user";
-    return *this;
-}*/
 
 ///Getter phonenumber
 const std::string &User::getPhoneNumber() const {
