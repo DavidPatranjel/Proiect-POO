@@ -37,12 +37,13 @@ Account *User::clone()const {
     std::cout<<"CLONAUSER\n";
     return new User (*this);
 }
+/*
 ///Operatorul =
 User &User::operator=(const User &oth) {
     Account::operator=(oth);
     std::cout<<"Op=  user";
     return *this;
-}
+}*/
 
 ///Getter phonenumber
 const std::string &User::getPhoneNumber() const {
@@ -50,7 +51,7 @@ const std::string &User::getPhoneNumber() const {
 }
 
 ///Adaugare subsciption
-void User::addSubscription(const std::shared_ptr<Account> provider_, const std::string &start_date_, const std::string &end_date_,
+void User::addSubscription(const std::shared_ptr<Account>& provider_, const std::string &start_date_, const std::string &end_date_,
                            const std::string &type_, int price_) {
     dynamic_cast<Provider&>(*provider_).addSubscribers(creds.getUsername()) ;
     Subscription s_aux{provider_, start_date_, end_date_, type_, price_};
@@ -68,4 +69,8 @@ void User::cancelSubscription(const std::string &provider_name_) {
         }
         k++;
     }
+}
+///Destr user
+User::~User() {
+    std::cout<<"Destr user\n";
 }

@@ -62,3 +62,8 @@ int Provider::delSubscribers(const std::string &username_) {
     std::cout<<"Error: cant find subscription";
     return 0;
 }
+
+///Destr provider
+Provider::~Provider() {
+    std::cout<<"Destr user\n";
+}

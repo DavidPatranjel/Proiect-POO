@@ -34,6 +34,9 @@ public:
 
     ///Clonarea
     [[nodiscard]] virtual Account* clone() const = 0;
+
+    ///Destructor virtual pur
+    virtual ~Account() = 0;
 };
 
 #endif

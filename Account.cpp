@@ -22,3 +22,8 @@ std::ostream &operator<<(std::ostream &os, const Account &account) {
 void Account::callChangePasswordAccount(const std::string &new_password_) {
     creds.changePassword(new_password_);
 }
+
+///Destructor virtual pur
+Account::~Account(){
+    std::cout<<"Destr virt pur account\n";
+}

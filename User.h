@@ -28,16 +28,19 @@ public:
     [[nodiscard]] Account *clone() const override;
 
     ///Operatorul =
-    User& operator= (const User& oth);
+    ///User& operator= (const User& oth);
 
     ///Getter phonenumber
     [[nodiscard]] const std::string &getPhoneNumber() const;
 
     ///Adaugare subsciption
-    void addSubscription(const std::shared_ptr<Account> provider_, const std::string& start_date_,const  std::string& end_date_, const std::string& type_, int price_);
+    void addSubscription(const std::shared_ptr<Account>& provider_, const std::string& start_date_,const  std::string& end_date_, const std::string& type_, int price_);
 
     ///Anulare subsciption
     void cancelSubscription(const std::string& provider_name_);
+
+    ///Destr user
+    ~User() override;
 };
 
 #endif
