@@ -1,5 +1,6 @@
 #include "Date_providers.h"
 #include "Provider.h"
+#include "Error.h"
 
 ///Swap
 void swap(Date_providers &c1, Date_providers &c2) {
@@ -33,7 +34,7 @@ std::ostream &operator<<(std::ostream &os, const Date_providers &data_providers_
 }
 
 ///Gasirea providerului
-int Date_providers::findProviderConfirmation(const std::string cui_) {
+int Date_providers::findProviderConfirmation(const std::string& cui_) {
     int k = 0;
     for(auto& i:providers){
         if(dynamic_cast<const Provider &>(*i).getCui() == cui_){
@@ -44,7 +45,7 @@ int Date_providers::findProviderConfirmation(const std::string cui_) {
     return -1;
 }
 
-int Date_providers::findProvider(const std::string username_) {
+int Date_providers::findProvider(const std::string& username_) {
     int k = 0;
     for(auto& i:providers){
         if(i->getCreds().getUsername() == username_){
@@ -55,11 +56,16 @@ int Date_providers::findProvider(const std::string username_) {
     return -1;
 }
 
-int Date_providers::findSubscriptionAndDelete(const std::string username_user_, const std::string username_provider_) {
-    int k = (*this).findProvider(username_provider_);
-    if(k != -1){
-        if(dynamic_cast<Provider&>(*providers[k]).delSubscribers(username_user_))
+int Date_providers::findSubscriptionAndDelete(const std::string& username_user_, const std::string& username_provider_) {
+    try {
+        int k = (*this).findProvider(username_provider_);
+        if(k == -1) throw(findError("Error: can't find this provider!\n"));
+        if(dynamic_cast<Provider &>(*providers[k]).delSubscribers(username_user_))
             return 1;
+        else
+            throw;
+    }catch (std::exception& err){
+        std::cout << err.what() << "\n";
     }
     std::cout<<"Error: cant find provider!";
     return 0;

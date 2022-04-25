@@ -28,4 +28,9 @@ class findError : public appError {
 public:
     explicit findError(const std::string &arg);
 };
+
+class passwordError : public appError {
+public:
+    explicit passwordError(const std::string &arg);
+};
 #endif

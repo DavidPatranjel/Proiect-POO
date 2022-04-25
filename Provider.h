@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <ostream>
+#include <memory>
 #include "Credentials.h"
 #include "Account.h"
 
@@ -25,7 +26,7 @@ public:
     void confirmAccount() override;
 
     ///CLONARE
-    std::shared_ptr<Account> *clone() const override;
+    [[nodiscard]] std::shared_ptr<Account> clone() const override;
 
     ///Getter CUI
     [[nodiscard]] const std::string &getCui() const;

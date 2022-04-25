@@ -35,6 +35,8 @@ void Account::callChangePasswordAccount(const std::string &new_password_) {
     try{
         if(!this->isConfirmed())
             throw(confirmedError{"Error: user is not confirmed!\n"});
+        if(this->creds.getUsername() == new_password_)
+            throw(passwordError{"Error: old password is the same as the new password!\n"});
         creds.changePassword(new_password_);
     }catch (std::exception& err){
         std::cout << err.what() << "\n";

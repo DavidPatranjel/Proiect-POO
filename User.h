@@ -25,7 +25,7 @@ public:
     void confirmAccount() override;
 
     ///Clonare
-    std::shared_ptr<Account> clone() const override;
+    [[nodiscard]] std::shared_ptr<Account> clone() const override;
 
     ///Getter phonenumber
     [[nodiscard]] const std::string &getPhoneNumber() const;

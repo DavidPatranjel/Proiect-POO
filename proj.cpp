@@ -2,7 +2,6 @@
 #include <vector>
 #include "User.h"
 #include "Provider.h"
-#include "Usernames.h"
 #include "Credentials.h"
 #include "Subscription.h"
 #include "Date_users.h"
@@ -10,7 +9,8 @@
 #include "Error.h"
 
 int main(){
-    Usernames usernameAccounts;
+    std::ofstream fout("usernames.txt");
+    fout.close();
     Credentials c1{"dave", "parola"},c2{"ana123","parolaparola"};
     Credentials c3{"ionpopescu22", "parola123"}, c4{"danvoiculescu33", "password111"};
     std::shared_ptr<Account> ac = std::make_shared<User>(c3, "Ion", "Popescu", "Garanti", "0785284130");

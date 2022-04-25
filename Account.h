@@ -2,6 +2,7 @@
 #define PROIECT1_POO_ACCOUNT_H
 #include <string>
 #include <ostream>
+#include <memory>
 #include "Credentials.h"
 
 class Account {

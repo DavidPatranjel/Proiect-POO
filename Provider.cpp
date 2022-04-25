@@ -1,4 +1,5 @@
 #include "Provider.h"
+#include "Error.h"
 
 ///Constructor de initializare - provider
 Provider::Provider(const Credentials &creds_, const std::string &first_name_, const std::string &last_name_,
@@ -52,19 +53,23 @@ void Provider::addSubscribers(const std::string &username_) {
 }
 ///Stergere subscriber
 int Provider::delSubscribers(const std::string &username_) {
-    int k = 0;
-    for (const std::string &sub: subscribers) {
-        if (sub == username_) {
-            subscribers.erase(subscribers.begin() + k);
-            return 1;
+    try {
+        int k = 0;
+        for (const std::string &sub: subscribers) {
+            if (sub == username_) {
+                subscribers.erase(subscribers.begin() + k);
+                return 1;
+            }
+            k++;
         }
-        k++;
+        throw(subscriptionError("Error: can't find subscription!\n"));
+    }catch (std::exception& err){
+        std::cout << err.what() << "\n";
     }
-    std::cout<<"Error: cant find subscription";
     return 0;
 }
 
 ///Destr provider
 Provider::~Provider() {
-    std::cout<<"Destr user\n";
+    std::cout<<"Destr provider\n";
 }

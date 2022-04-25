@@ -9,7 +9,7 @@ Subscription::Subscription(const std::shared_ptr<Account>& provider_, const std:
 
 ///Operatorul << - subsscription
 std::ostream &operator<<(std::ostream &os, const Subscription &sb) {
-    os << sb.provider->getCreds().getUsername()<<"\n";
+    os << "Provider: "<<sb.provider->getCreds().getUsername()<<"\n";
     os << "Start date: " << sb.start_date << ", end date: " << sb.end_date << ", type subscription: " << sb.type << ", price: " << sb.price <<"\n";
     return os;
 }
