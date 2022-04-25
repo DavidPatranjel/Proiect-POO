@@ -16,7 +16,7 @@ class Provider:public Account{
 public:
     ///Constructor de initializare - provider
     Provider(const Credentials& creds_, const std::string& first_name_, const std::string& last_name_,
-             const std::string& description_, const std::string& bank_account_, float bank_balance_, const std::string& cui_);
+             const std::string& description_, const std::string& bank_account_, const std::string& cui_);
 
     ///Operatorul <<
     friend std::ostream &operator<<(std::ostream &os, const Provider &provider);
@@ -25,7 +25,7 @@ public:
     void confirmAccount() override;
 
     ///CLONARE
-    [[nodiscard]] Account *clone() const override;
+    std::shared_ptr<Account> *clone() const override;
 
     ///Getter CUI
     [[nodiscard]] const std::string &getCui() const;

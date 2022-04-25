@@ -10,7 +10,7 @@ protected:
     std::string first_name;
     std::string last_name;
     std::string bank_account;
-    float bank_balance;
+    float bank_balance = 0;
     bool confirmed = false;
 
     ///Clonarea
@@ -18,13 +18,19 @@ protected:
     Account & operator=(const Account& ac) = default;
 public:
     ///Constructor de initializare - account
-    Account(const Credentials &creds_, const std::string &first_name_, const std::string &last_name_, const std::string &bank_account_, float bank_balance_);
+    Account(const Credentials &creds_, const std::string &first_name_, const std::string &last_name_, const std::string &bank_account_);
 
     ///virtual-conf. account
     virtual void confirmAccount() = 0;
 
     ///Getter - creds
     [[nodiscard]] const Credentials &getCreds() const;
+
+    ///Getter - confirmed
+    bool isConfirmed() const;
+
+    ///Setter - bankBalance
+    void setBankBalance(float bankBalance);
 
     ///Change password
     void callChangePasswordAccount(const std::string &new_password_);
@@ -33,7 +39,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Account &account);
 
     ///Clonarea
-    [[nodiscard]] virtual Account* clone() const = 0;
+    [[nodiscard]] virtual std::shared_ptr<Account> clone() const = 0;
 
     ///Destructor virtual pur
     virtual ~Account() = 0;

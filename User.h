@@ -16,7 +16,7 @@ class User:public Account{
     std::vector<Subscription> subscriptions;
 public:
     ///Constructor de initializare - users
-    User(const Credentials& creds_, const std::string& first_name_, const std::string& last_name_, const std::string& bank_account_, float bank_balance_, const std::string& phoneNumber_);
+    User(const Credentials& creds_, const std::string& first_name_, const std::string& last_name_, const std::string& bank_account_, const std::string& phoneNumber_);
 
     ///Operatorul <<
     friend std::ostream &operator<<(std::ostream &os, const User &user);
@@ -25,7 +25,7 @@ public:
     void confirmAccount() override;
 
     ///Clonare
-    [[nodiscard]] Account *clone() const override;
+    std::shared_ptr<Account> clone() const override;
 
     ///Getter phonenumber
     [[nodiscard]] const std::string &getPhoneNumber() const;

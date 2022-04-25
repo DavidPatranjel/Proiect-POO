@@ -1,9 +1,11 @@
 #include "Credentials.h"
+#include "Error.h"
 
 ///Constructor de initializare - credentiale
 Credentials::Credentials(const std::string &username_, const std::string &password_) :
         username{username_}, password{password_}{
     std::cout << "Constr de initializare Credentiale\n";
+    throw(credentialsError{"Error: username exists!"});
 }
 
 ///Operatorul << - credentiale
@@ -22,5 +24,6 @@ void Credentials::changePassword(const std::string &new_password_) {
     }
 }
 
-///Getter
+///Getter-username
 const std::string &Credentials::getUsername() const {return username;}
+

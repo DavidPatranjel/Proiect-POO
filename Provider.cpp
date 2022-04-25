@@ -2,8 +2,8 @@
 
 ///Constructor de initializare - provider
 Provider::Provider(const Credentials &creds_, const std::string &first_name_, const std::string &last_name_,
-                   const std::string &description_, const std::string &bank_account_, float bank_balance_, const std::string& cui_) :
-        Account(creds_,first_name_,last_name_,bank_account_,bank_balance_), description{description_}, cui{cui_}{
+                   const std::string &description_, const std::string &bank_account_, const std::string& cui_) :
+        Account(creds_,first_name_,last_name_,bank_account_), description{description_}, cui{cui_}{
     std::cout << "Constr init provider\n";
 }
 
@@ -28,6 +28,7 @@ void Provider::confirmAccount(){
     std::cin>>ans;
     if(ans[0] == 'Y'){
         std::cout<<"Provider confirmation successful!\n";
+        this->setBankBalance(0);
         confirmed = true;
     }
     else if(ans[0] == 'N') std::cout<<"Provider confirmation canceled\n";
@@ -35,9 +36,9 @@ void Provider::confirmAccount(){
 }
 
 ///Clonare
-Account *Provider::clone () const{
+std::shared_ptr<Account> Provider::clone () const{
     std::cout<<"CLONAPROVIDER\n";
-    return new Provider(*this);
+    return std::make_shared<Provider>(*this);
 }
 
 ///Getter CUI

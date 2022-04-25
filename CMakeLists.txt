@@ -25,7 +25,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
 add_executable(${PROJECT_NAME}
-        proj.cpp Credentials.cpp Credentials.h User.cpp User.h Provider.cpp Provider.h Subscription.cpp Subscription.h Account.cpp Account.h Date_users.cpp Date_users.h Date_providers.cpp Date_providers.h)
+        proj.cpp Credentials.cpp Credentials.h User.cpp User.h Provider.cpp Provider.h Subscription.cpp Subscription.h Account.cpp Account.h Date_users.cpp Date_users.h Date_providers.cpp Date_providers.h Error.cpp Error.h Usernames.cpp Usernames.h)
 
 ###############################################################################
 

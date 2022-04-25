@@ -2,17 +2,20 @@
 #include <vector>
 #include "User.h"
 #include "Provider.h"
+#include "Usernames.h"
 #include "Credentials.h"
 #include "Subscription.h"
 #include "Date_users.h"
 #include "Date_providers.h"
+#include "Error.h"
 
 int main(){
-    Credentials c3{"ionpopescu22", "parola123"},c4{"danvoiculescu33","password111"};
+    Usernames usernameAccounts;
     Credentials c1{"dave", "parola"},c2{"ana123","parolaparola"};
-    std::shared_ptr<Account> ac = std::make_shared<User>(c3, "Ion", "Popescu", "Garanti", 2000, "0785284130");
-    std::shared_ptr<Account> ac1 ( new User(c1, "Ioan", "Popescu", "Garantii", 2000, "0785284220"));
-    std::shared_ptr<Account> ac10 ( new User(c4, "Ionica", "Popica", "BT", 1100, "0785284221"));
+    Credentials c3{"ionpopescu22", "parola123"}, c4{"danvoiculescu33", "password111"};
+    std::shared_ptr<Account> ac = std::make_shared<User>(c3, "Ion", "Popescu", "Garanti", "0785284130");
+    std::shared_ptr<Account> ac1 ( new User(c1, "Ioan", "Popescu", "Garantii", "0785284220"));
+    std::shared_ptr<Account> ac10 ( new User(c4, "Ionica", "Popica", "BT",  "0785284221"));
     std::vector<std::shared_ptr<Account>> accounts1;
     std::vector<std::shared_ptr<Account>> accounts11;
     accounts1.push_back(ac);
@@ -27,44 +30,61 @@ int main(){
     std::cout<<datauser1;
     std::cout<<std::endl;
     std::cout<<datauser2<<"\n";
-    std::shared_ptr<Account> ac2 = std::make_shared<Provider>(c1, "David", "Patranjel", "the best yt videos", "IBAN1324", 2040, "RO123");
-    std::shared_ptr<Account> ac8 = std::make_shared<Provider>(c2, "David", "Patrddanjel", "the bddest yt videos", "IBANd1324", 2040, "RO1423");
+    std::shared_ptr<Account> ac2 = std::make_shared<Provider>(c1, "David", "Patranjel", "the best yt videos", "IBAN1324", "RO123");
+    std::shared_ptr<Account> ac8 = std::make_shared<Provider>(c2, "David", "Patrddanjel", "the bddest yt videos", "IBANd1324", "RO1423");
     std::vector<std::shared_ptr<Account>> accounts2;
     accounts2.push_back(ac2);
     accounts2.push_back(ac8);
     Date_providers dataprovider1{accounts2};
     std::cout<<dataprovider1;
     std::cout<<"\n\nCONFIRMATION USER\n";
-    int k = datauser1.findUserConfirmation("0785284220");
-    if(k==-1) std::cout<<"ERROR! Cant find phone number\n";
-    else {
-        std::cout<<dynamic_cast<const User &>(*datauser1[k]);
-        datauser1[k]->confirmAccount();
-        std::cout<<dynamic_cast<const User &>(*datauser1[k]);
+    int k;
+    try{
+        k = datauser1.findUserConfirmation("0785284220");
+        if(k==-1) throw(findError{"Error: can't find this user!\n"});
+        else {
+            std::cout<<dynamic_cast<const User &>(*datauser1[k]);
+            datauser1[k]->confirmAccount();
+            std::cout<<dynamic_cast<const User &>(*datauser1[k]);
+        }
+    }catch (std::exception& err){
+        std::cout << err.what() << "\n";
     }
     std::cout<<"\n\nCONFIRMATION PROVIDER\n";
-    k = dataprovider1.findProviderConfirmation("RO1423");
-    if(k==-1) std::cout<<"ERROR! Cant find phone number\n";
-    else {
-        std::cout<<dynamic_cast<const Provider &>(*dataprovider1[k]);
-        dataprovider1[k]->confirmAccount();
-        std::cout<<dynamic_cast<const Provider &>(*dataprovider1[k]);
+    try {
+        k = dataprovider1.findProviderConfirmation("RO1423");
+        if (k == -1) throw(findError{"Error: can't find this provider!\n"});
+        else {
+            std::cout << dynamic_cast<const Provider &>(*dataprovider1[k]);
+            dataprovider1[k]->confirmAccount();
+            std::cout << dynamic_cast<const Provider &>(*dataprovider1[k]);
+        }
+    }catch (std::exception& err){
+        std::cout << err.what() << "\n";
     }
     ///Test schimbare parola
     std::cout<<std::endl<<"CHANGE PASSWORD TEST"<<std::endl<<std::endl;
     k = datauser1.findUser("danvoiculescu33");
-    if(k==-1) std::cout<<"ERROR! Cant find user\n";
-    else {
-        std::cout<<dynamic_cast<const User &>(*datauser1[k]);
-        datauser1[k]->callChangePasswordAccount("parola123");
-        std::cout<<dynamic_cast<const User &>(*datauser1[k]);
+    try {
+        if (k == -1) throw(findError{"Error: can't find this user!\n"});
+        else {
+            std::cout << dynamic_cast<const User &>(*datauser1[k]);
+            datauser1[k]->callChangePasswordAccount("parola123");
+            std::cout << dynamic_cast<const User &>(*datauser1[k]);
+        }
+    }catch (std::exception& err){
+        std::cout << err.what() << "\n";
     }
-    k = dataprovider1.findProvider("ana123");
-    if(k==-1) std::cout<<"ERROR! Cant find provider\n";
-    else {
-        std::cout<<dynamic_cast<const Provider &>(*dataprovider1[k]);
-        dataprovider1[k]->callChangePasswordAccount("parolaparola");
-        std::cout<<dynamic_cast<const Provider &>(*dataprovider1[k]);
+    try {
+        k = dataprovider1.findProvider("ana123");
+        if (k == -1) throw(findError{"Error: can't find this provider!\n"});
+        else {
+            std::cout << dynamic_cast<const Provider &>(*dataprovider1[k]);
+            dataprovider1[k]->callChangePasswordAccount("parolaparola");
+            std::cout << dynamic_cast<const Provider &>(*dataprovider1[k]);
+        }
+    }catch (std::exception& err){
+        std::cout << err.what() << "\n";
     }
     ///Test subscription
     std::cout<<std::endl<<"SUBSCRIPTION TEST"<<std::endl<<std::endl;
