@@ -10,7 +10,7 @@ void swap(Date_providers &c1, Date_providers &c2) {
 ///Constructor de copiere
 Date_providers::Date_providers(const Date_providers &other) {
     for(const auto& a:other.providers){
-        providers.push_back(static_cast<const std::shared_ptr<Account>>(a->clone()));
+        providers.push_back(a->clone());
     }
 }
 
@@ -62,8 +62,6 @@ int Date_providers::findSubscriptionAndDelete(const std::string& username_user_,
         if(k == -1) throw(findError("Error: can't find this provider!\n"));
         if(dynamic_cast<Provider &>(*providers[k]).delSubscribers(username_user_))
             return 1;
-        else
-            throw;
     }catch (std::exception& err){
         std::cout << err.what() << "\n";
     }

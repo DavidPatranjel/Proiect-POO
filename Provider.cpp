@@ -63,8 +63,9 @@ int Provider::delSubscribers(const std::string &username_) {
             k++;
         }
         throw(subscriptionError("Error: can't find subscription!\n"));
-    }catch (std::exception& err){
+    }catch (std::exception& err) {
         std::cout << err.what() << "\n";
+        throw;
     }
     return 0;
 }
