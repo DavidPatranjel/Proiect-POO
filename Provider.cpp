@@ -67,7 +67,6 @@ int Provider::delSubscribers(const std::string &username_) {
         std::cout << err.what() << "\n";
         throw;
     }
-    return 0;
 }
 
 ///Destr provider
