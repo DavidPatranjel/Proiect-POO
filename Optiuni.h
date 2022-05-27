@@ -9,7 +9,7 @@ public:
     Optiuni &operator=(const Optiuni&) = delete;
     Optiuni(const Optiuni&) = delete;
     static Optiuni& get_Op();
-    static void appTestOpegal(Date_users& datauser1_);
+    static void appTestOpegal(const Date_users& datauser1_);
     static void appConfirmationUser(Date_users& us_, const std::string& phone_number);
     static void appConfirmationProvider(Date_providers& pr_, const std::string& cui);
     static void changePasswordUser(Date_users& us_, const std::string& un_, const std::string& new_password_);

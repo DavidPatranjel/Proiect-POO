@@ -6,16 +6,15 @@ Optiuni &Optiuni::get_Op() {
     static Optiuni op;
     return op;
 }
-void Optiuni::appTestOpegal(Date_users& datauser1_){
+void Optiuni::appTestOpegal(const Date_users& datauser1_){
     Date_users datauseraux{std::vector<std::shared_ptr<Account>>{}};
     std::cout<<datauseraux;
     datauseraux = datauser1_;
     std::cout<<datauseraux;
 }
 void Optiuni::appConfirmationUser(Date_users& us_, const std::string& phone_number) {
-    int k;
     try{
-        k = us_.findUserConfirmation(phone_number);
+        int k = us_.findUserConfirmation(phone_number);
         std::cout<<*us_[k];
         us_[k]->confirmAccount();
         std::cout<<*us_[k];
@@ -24,9 +23,8 @@ void Optiuni::appConfirmationUser(Date_users& us_, const std::string& phone_numb
     }
 }
 void Optiuni::appConfirmationProvider(Date_providers& pv_, const std::string& cui) {
-    int k;
     try {
-        k = pv_.findProviderConfirmation(cui);
+        int k = pv_.findProviderConfirmation(cui);
         std::cout <<*pv_[k];
         pv_[k]->confirmAccount();
         std::cout <<*pv_[k];
