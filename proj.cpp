@@ -13,7 +13,7 @@ int main(){
     fout.close();
     CredentialsBuilder cb;
     Credentials c1 = cb.username("david1").password("password_david1").build();
-    Credentials c2 = cb.username("david2").password("password_david2").build();
+    ///Credentials c2 = cb.username("david2").password("password_david2").build();
     Credentials c3{"david3", "password_david3"}, c4{"david4", "password_david4"};
     std::shared_ptr<Account> ac3 = std::make_shared<User>(c3, "Dave", "Trei", "RON123BT00059", "verde", "Aprilie", "0785284130");
     std::shared_ptr<Account> ac1 ( new User(c1, "Dave", "Unu", "RON123BGB00012", "albastru", "August", "0785284220"));
