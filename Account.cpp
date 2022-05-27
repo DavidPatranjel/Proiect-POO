@@ -1,6 +1,6 @@
 #include "Account.h"
 #include "Error.h"
-
+const std::string salt = "?/Mp.3";
 ///Constructor de initializare - account
 Account::Account(const Credentials &creds_, const std::string &first_name_, const std::string &last_name_,
                  const std::string &bank_account_) :
@@ -23,24 +23,28 @@ void Account::setBankBalance(float bankBalance) {
     bank_balance = bankBalance;
 }
 
-///operatorul <<
+///operatorul << + afisare
 std::ostream &operator<<(std::ostream &os, const Account &account) {
+    account.afisare(os);
+    return os;
+}
+void Account::afisare(std::ostream &os) const{
+    const auto& account = *this;
     os << account.creds << "first_name: " << account.first_name << " last_name: " << account.last_name
        << " bank_account: " << account.bank_account << " bank_balance: " << account.bank_balance << " confirmed: "
        << account.confirmed;
-    return os;
 }
+
 ///apeleaza schimbarea de parola
 void Account::callChangePasswordAccount(const std::string &new_password_) {
-    try{
-        if(!this->isConfirmed())
-            throw(confirmedError{"Error: user is not confirmed!\n"});
-        if(this->creds.getUsername() == new_password_)
-            throw(passwordError{"Error: old password is the same as the new password!\n"});
-        creds.changePassword(new_password_);
-    }catch (std::exception& err){
-        std::cout << err.what() << "\n";
-    }
+    if(!this->isConfirmed())
+        throw(confirmationError{"Error: user is not confirmed!\n"});
+    std::hash<std::string> z;
+    std::string aux;
+    aux = std::to_string(z(new_password_ + salt));
+    if(this->creds.getPassword() == aux)
+        throw(passwordError{"Error: old password is the same as the new password!\n"});
+    creds.changePassword(aux);
 }
 
 ///Destructor virtual pur

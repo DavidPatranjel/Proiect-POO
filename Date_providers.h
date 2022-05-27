@@ -28,7 +28,7 @@ public:
     ///Gasirea providerului
     int findProviderConfirmation(std::string const& cui_);
     int findProvider(std::string const& username_);
-    int findSubscriptionAndDelete(const std::string& username_user_, const std::string& username_provider_);
+    void findSubscriptionAndDelete(const std::string& username_user_, const std::string& username_provider_);
     ///Operator []
     std::shared_ptr<Account> operator[](int i);
 

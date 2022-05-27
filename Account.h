@@ -28,7 +28,7 @@ public:
     [[nodiscard]] const Credentials &getCreds() const;
 
     ///Getter - confirmed
-    bool isConfirmed() const;
+    [[nodiscard]] bool isConfirmed() const;
 
     ///Setter - bankBalance
     void setBankBalance(float bankBalance);
@@ -36,8 +36,9 @@ public:
     ///Change password
     void callChangePasswordAccount(const std::string &new_password_);
 
-    ///Op<<
+    ///Op<< + afisare
     friend std::ostream &operator<<(std::ostream &os, const Account &account);
+    virtual void afisare(std::ostream &os) const;
 
     ///Clonarea
     [[nodiscard]] virtual std::shared_ptr<Account> clone() const = 0;

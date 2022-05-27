@@ -5,24 +5,20 @@
 void swap(Date_users &c1, Date_users &c2) {
     std::swap(c1.users, c2.users);
 }
-
 ///Constructor de copiere
-Date_users::Date_users(const Date_users &other) {
+[[maybe_unused]] Date_users::Date_users(const Date_users &other) {
     for(const auto& a:other.users){
         users.push_back(a->clone());
     }
 }
-
 ///Operatorul =
 Date_users &Date_users::operator=(const Date_users &other) {
     auto copie{other};
     swap(*this, copie);
     return *this;
 }
-
 ///Constructor de init
 Date_users::Date_users(std::vector<std::shared_ptr<Account>> users) : users(std::move(users)) {}
-
 ///Operatorul <<
 std::ostream &operator<<(std::ostream &os, const Date_users &data_user_) {
     int k = 0;
@@ -31,7 +27,6 @@ std::ostream &operator<<(std::ostream &os, const Date_users &data_user_) {
     }
     return os;
 }
-
 ///Gasirea userului
 int Date_users::findUserConfirmation(const std::string& phone_number_) {
     int k = 0;
@@ -41,9 +36,9 @@ int Date_users::findUserConfirmation(const std::string& phone_number_) {
         }
         k++;
     }
-    return -1;
+    throw(findError{"Error: can't find this user!\n"});
+    ///return -1;
 }
-
 int Date_users::findUser(const std::string& username_) {
     int k = 0;
     for(auto& i:users){
@@ -52,9 +47,9 @@ int Date_users::findUser(const std::string& username_) {
         }
         k++;
     }
-    return -1;
+    throw(findError{"Error: can't find this user!\n"});
+    ///return -1;
 }
-
 ///Operatorul []
 std::shared_ptr<Account> Date_users::operator[](int i) {
     return users[i];

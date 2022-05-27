@@ -10,16 +10,19 @@
 #include "Subscription.h"
 #include "Account.h"
 #include "Date_providers.h"
+#include "Security.h"
+#include "Error.h"
 
 class User:public Account{
+    Security<std::string> backup;
     std::string phoneNumber;
     std::vector<Subscription> subscriptions;
 public:
     ///Constructor de initializare - users
-    User(const Credentials& creds_, const std::string& first_name_, const std::string& last_name_, const std::string& bank_account_, const std::string& phoneNumber_);
+    User(const Credentials& creds_, const std::string& first_name_, const std::string& last_name_, const std::string& bank_account_,const std::string& q1, const std::string& q2, const std::string& phoneNumber_);
 
-    ///Operatorul <<
-    friend std::ostream &operator<<(std::ostream &os, const User &user);
+    ///Afisare
+    void afisare(std::ostream &os) const override;
 
     ///virtual-conf. account
     void confirmAccount() override;
@@ -35,6 +38,9 @@ public:
 
     ///Anulare subsciption
     void cancelSubscription(const std::string& provider_name_);
+
+    ///Backup user
+    void recoverCredentials(const std::string& q1, const std::string& q2);
 
     ///Destr user
     ~User() override;

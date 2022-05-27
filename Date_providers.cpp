@@ -42,7 +42,8 @@ int Date_providers::findProviderConfirmation(const std::string& cui_) {
         }
         k++;
     }
-    return -1;
+    throw(findError{"Error: can't find this provider!\n"});
+    ///return -1;
 }
 
 int Date_providers::findProvider(const std::string& username_) {
@@ -53,20 +54,13 @@ int Date_providers::findProvider(const std::string& username_) {
         }
         k++;
     }
-    return -1;
+    throw(findError{"Error: can't find this provider!\n"});
+    ///return -1;
 }
-
-int Date_providers::findSubscriptionAndDelete(const std::string& username_user_, const std::string& username_provider_) {
-    try {
-        int k = (*this).findProvider(username_provider_);
-        if(k == -1) throw(findError("Error: can't find this provider!\n"));
-        if(dynamic_cast<Provider &>(*providers[k]).delSubscribers(username_user_))
-            return 1;
-    }catch (std::exception& err){
-        std::cout << err.what() << "\n";
-    }
-    std::cout<<"Error: cant find provider!";
-    return 0;
+void Date_providers::findSubscriptionAndDelete(const std::string& username_user_, const std::string& username_provider_) {
+    int k = (*this).findProvider(username_provider_);
+    if(k == -1) throw(findError("Error: can't find this provider!\n"));
+    dynamic_cast<Provider &>(*providers[k]).delSubscribers(username_user_);
 }
 
 ///Operator []

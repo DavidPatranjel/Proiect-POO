@@ -9,9 +9,9 @@ public:
     explicit appError(const std::string &arg);
 };
 
-class confirmedError : public appError {
+class confirmationError : public appError {
 public:
-    explicit confirmedError(const std::string &arg);
+    explicit confirmationError(const std::string &arg);
 };
 
 class subscriptionError : public appError {
@@ -32,5 +32,10 @@ public:
 class passwordError : public appError {
 public:
     explicit passwordError(const std::string &arg);
+};
+
+class securityError : public appError {
+public:
+    explicit securityError(const std::string &arg);
 };
 #endif

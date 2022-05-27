@@ -15,7 +15,7 @@ public:
     friend void swap(Date_users & c1, Date_users &c2);
 
     ///Constructor de copiere
-    Date_users(const Date_users& other);
+    [[maybe_unused]] Date_users(const Date_users& other);
 
     ///Operatorul =
     Date_users& operator=(const Date_users& other);
