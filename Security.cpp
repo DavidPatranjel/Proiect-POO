@@ -11,7 +11,7 @@ std::ostream &operator<<(std::ostream &os, const Security<T> &security) {
     return os;
 }
 template<typename T>
-bool Security<T>::verificaSecuritate(T a, T b){
+bool Security<T>::verificaSecuritate(const T& a,const T& b){
     return a+b == backup_code_final;
 }
 

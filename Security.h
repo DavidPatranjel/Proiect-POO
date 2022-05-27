@@ -14,7 +14,7 @@ class Security {
 public:
     [[maybe_unused]] Security(T backup_code1_, T backup_code2_);
     friend std::ostream& operator<< <>(std::ostream&, const Security<T>&);
-    bool verificaSecuritate(T a, T b);
+    bool verificaSecuritate(const T& a, const T& b);
 };
 
 #endif
