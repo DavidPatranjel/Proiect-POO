@@ -72,7 +72,7 @@ endif()
 ###############################################################################
 
 # use SYSTEM so clang-tidy does not report warnings from these directories
-#target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext)  # sau ext/include
+target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext)  # sau ext/include
 #target_link_directories(${PROJECT_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 #target_link_libraries(${PROJECT_NAME} <SomeLib>)
 
