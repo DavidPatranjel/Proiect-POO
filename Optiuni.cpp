@@ -77,7 +77,7 @@ void Optiuni::appTestSecurity(const std::shared_ptr<Account>& ac_, const std::st
     try {
         dynamic_cast<User &>(*ac_).recoverCredentials(d1, d2);
         std::string ans;
-        std::cout<<"Want to reset password?";
+        std::cout<<"Want to reset password? Y/N:";
         std::cin>>ans;
         if(ans[0] == 'Y') {
             std::cout<<"What is the new password?\n"; std::cin>>ans;

@@ -1,11 +1,10 @@
 #include "Credentials.h"
+#include "digestpp.hpp"
 #include "Error.h"
-const std::string salt = "?/Mp.3";
+using namespace digestpp;
 ///Constructor de initializare - credentiale
 Credentials::Credentials(const std::string &username_, const std::string &password_) :
-        username{username_}{
-    std::hash<std::string> z;
-    password = std::to_string(z(password_ +salt));
+        username{username_}, password{blake2b(256).absorb(password_).hexdigest()}{
     std::ifstream fin("usernames.txt");
     std::string s;
     while(fin>>s){
@@ -53,10 +52,8 @@ CredentialsBuilder &CredentialsBuilder::username(const std::string& u_) {
     hasUsername = true;
     return *this;
 }
-
 CredentialsBuilder &CredentialsBuilder::password(const std::string& p_) {
-    std::hash<std::string> z;
-    cred.password = std::to_string(z(p_+salt));
+    cred.password = blake2b(256).absorb(p_).hexdigest();
     return *this;
 }
 Credentials CredentialsBuilder::build() {
@@ -74,5 +71,5 @@ Credentials CredentialsBuilder::build() {
 int CredentialsFactory::contor = 0;
 Credentials CredentialsFactory::automat() {
     contor++;
-    return Credentials{"username"+ std::to_string(contor), "parola"+std::to_string(contor)+salt};
+    return Credentials{"username"+ std::to_string(contor), "parola"+std::to_string(contor)};
 }

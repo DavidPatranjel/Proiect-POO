@@ -1,6 +1,7 @@
 #include "Account.h"
 #include "Error.h"
-const std::string salt = "?/Mp.3";
+#include "digestpp.hpp"
+using namespace digestpp;
 ///Constructor de initializare - account
 Account::Account(const Credentials &creds_, const std::string &first_name_, const std::string &last_name_,
                  const std::string &bank_account_) :
@@ -39,9 +40,7 @@ void Account::afisare(std::ostream &os) const{
 void Account::callChangePasswordAccount(const std::string &new_password_) {
     if(!this->isConfirmed())
         throw(confirmationError{"Error: user is not confirmed!\n"});
-    std::hash<std::string> z;
-    std::string aux;
-    aux = std::to_string(z(new_password_ + salt));
+    std::string aux = blake2b(256).absorb(new_password_).hexdigest();
     if(this->creds.getPassword() == aux)
         throw(passwordError{"Error: old password is the same as the new password!\n"});
     creds.changePassword(aux);
